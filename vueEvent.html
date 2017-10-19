@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+
+	<div id="div1">
+		<input type="button" value="按钮" v-on:click="alert();">
+		<div id="div2" v-show="show" style="width:100px;height:100px;background: #ccc;"></div>
+	</div>
+	<script>
+		var v = new Vue({
+		        el:"#div1",
+		        data:{//数据
+		            message:"welcome",
+		            show:true
+		        },
+		        methods:{
+		            alert:function(){
+		            	this.show = !this.show;
+		            }
+		        }
+		    });
+	</script>
+</body>
+</html>

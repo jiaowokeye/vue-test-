@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue留言板</title>
+	<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+
+</head>
+<body>
+
+	<div id="div1" class="container">
+		<form role="form">
+			<div class="form-group">
+				<label for="userName">用户名</label>
+				<input type="text" id="name" class="form-control" v-model="userName">
+			</div>
+			<div class="form-group">
+				<label for="password">密码</label>
+				<input type="text" id="pwd" class="form-control" v-model="password">
+			</div>
+			<div class="form-group">
+				<input type="button" value="添加" class="btn btn-primary" v-on:click="add();">
+				<input type="reset" value="重置" class="btn btn-danger">
+			</div>
+		</form>
+		<table class="table table-border table-hover">
+			<caption class="'text-info">用户信息表</caption>
+			<tr>
+				<td class="text-center">序号</td>
+				<td class="text-center">名字</td>
+				<td class="text-center">密码</td>
+				<td class="text-center">操作</td>
+			</tr>
+			<tr v-for="(value,index) in myData">
+				<td class="text-center">{{index+1}}</td>
+				<td class="text-center">{{value.userName}}</td>
+				<td class="text-center">{{value.password}}</td>
+				<td class="text-center"><button class="btn btn-primary" data-toggle="modal" data-target="#layer" v-on:click="nowClient=index">删除</button></td>
+			</tr>
+
+			<tr v-show="myData.length!==0">
+				<td class="text-right" colspan="4">
+					<button class="btn btn-danger" v-on:click="delAll">全部删除</button>
+				</td>
+			</tr>
+			<tr v-show="myData.length==0">
+				<td class="text-center text-info" colspan="4" >
+					<p class="text-info">暂无</p>
+				</td>
+			</tr>
+		</table>
+
+		<div role="modal" id="layer" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button class="btn btn-default close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">确认删除么？</h4>
+					</div>
+					<div class="modal-body" align="right">
+						<button class="btn btn-primary" data-dismiss="modal" v-on:click="del();">确认</button>
+						<button class="btn btn-danger" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var v = new Vue({
+			el:"#div1",
+			data:{
+				myData:[],
+				userName:"",
+				password:"",
+				nowClient:100
+			},
+			methods:{
+				delAll:function(argument) {
+					this.myData=[];
+				},
+				add:function(argument) {
+					this.myData.push({
+						"userName":this.userName,
+						"password":this.password
+					});
+					this.userName="";
+					this.password="";
+				},
+				del:function() {
+					this.myData.splice(this.nowClient,1);
+				}
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+
+	<div id="list">
+		<input type="text" v-model="arr">
+		<ul>
+			<li v-for="(value,index) in arr">
+				{{value}} {{index}}
+			</li>
+		</ul>
+		<ul>
+			<li v-for="(value,key) in json">
+				{{value}}  {{key}}
+			</li>
+		</ul>
+	</div>
+	<script>
+		var v = new Vue({
+			el:"#list",
+			data:{
+				arr:["1","2","3"],
+				json:{"a":"123","b":"456"}
+			}
+		});
+	</script>
+</body>
+</html>
